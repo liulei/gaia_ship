@@ -29,7 +29,7 @@ There are 3 directories in this repo.
 
 - If you make use of SHiP in your work, we require that you quote the pipeline link `https://github.com/liulei/gaia_ship` and reference the following paper:
 
-  - `Liu, Lei & Pang, Xiaoying, "A catalog of newly identified star clusters in GAIA DR2", 2019, accepted for publication in ApJS`
+  - `Liu, Lei & Pang, Xiaoying, "A catalog of newly identified star clusters in GAIA DR2", 2019, accepted for publication in ApJS, arXiv:1910.12600`
 
 - The whole pipeline (including the data and figure) is as large as 1 GB, which is actually not easy to download from GitHub. For conveniece, I have prepared the `src.tar.gz`, just in case if you are only interested with the code. 
 
