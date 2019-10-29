@@ -9,7 +9,7 @@ There are 3 directories in this repo.
     - `CG18.txt` and `CG18b.txt`: these two catalogues together compose of the CG18 catalog.
     - `Bica.txt`: Bica et al. (2019)
     - `cal_all.txt`: full version of Tab. 1 in the paper.
-    - `cat_new.txt`: full version of Tab. 2 in the paper.
+    - `cat_new.txt`: full version of Tab. 3 in the paper.
     - `group/`: cluter members of 56 cluster groups. 
     
     **Note**: `cat_all.txt`, `cat_new.txt` and `group/sc_groupXXXX.txt` can be loaded with `pandas`, e.g.:
