@@ -106,7 +106,7 @@ class ISO(object):
         self.n_Z    =   len(self.l_Z)
 
         for idx_Z in range(self.n_Z):
-            print '%d, Z: %.7f' % (idx_Z, self.l_Z[idx_Z])
+            print ('%d, Z: %.7f' % (idx_Z, self.l_Z[idx_Z]))
             self.d[idx_Z]    =   self.dat2age_iso_tree(idx_Z)
 
     def save_npy(self, name):
@@ -267,7 +267,7 @@ class ISO(object):
         if i1 > n:
             i1  =   n
         l_i =   range(i0, i1)
-        print 'i_min %d, i_max %d' % (np.min(l_i), np.max(l_i))
+        print ('i_min %d, i_max %d' % (np.min(l_i), np.max(l_i)))
         for i in l_i:
             d2, shift  =   self.fit_HRD3(idx_Z, i, X)
 #            print 'Z %f, age %f, d2 %f' % (self.l_Z[idx_Z], self.d[idx_Z]['age'][i]/1E6, d2)
@@ -282,9 +282,9 @@ class ISO(object):
         d_fit['d2']     =   l_d2[idx]
         d_fit['shift']  =   l_shift[idx]
 
-        print 'Z = %f, age = %f Myr, d2 = %f, d[g, b, r] = [%f, %f, %f]' % \
+        print ('Z = %f, age = %f Myr, d2 = %f, d[g, b, r] = [%f, %f, %f]' % \
             (self.l_Z[idx_Z], d_fit['age'] / 1E6, d_fit['d2'], \
-             d_fit['shift'][0], d_fit['shift'][1], d_fit['shift'][2])
+             d_fit['shift'][0], d_fit['shift'][1], d_fit['shift'][2]))
 
         return d_fit
 
@@ -320,7 +320,7 @@ class ISO(object):
         if i1 > n:
             i1  =   n
         l_i =   range(i0, i1)
-        print 'i_min %d, i_max %d' % (np.min(l_i), np.max(l_i))
+        print ('i_min %d, i_max %d' % (np.min(l_i), np.max(l_i)))
         for i in l_i:
             d2, shift  =   self.fit_HRD(idx_Z, i, X)
 #            print 'Z %f, age %f, d2 %f' % (self.l_Z[idx_Z], self.d[idx_Z]['age'][i]/1E6, d2)
@@ -335,9 +335,9 @@ class ISO(object):
         d_fit['d2']     =   l_d2[idx]
         d_fit['shift']  =   l_shift[idx]
 
-        print 'Z = %f, age = %f Myr, d2 = %f, d[g, d-r] = [%f, %f]' % \
+        print ('Z = %f, age = %f Myr, d2 = %f, d[g, d-r] = [%f, %f]' % \
             (self.l_Z[idx_Z], d_fit['age'] / 1E6, d_fit['d2'], \
-             d_fit['shift'][0], d_fit['shift'][1])
+             d_fit['shift'][0], d_fit['shift'][1]))
 
         return d_fit
 
@@ -463,7 +463,7 @@ def fit3(id_sc):
     iso =   ISO()
     iso.load_npy('Z.npy')
     d_fit   =   iso.fit_age_Z3(g, b, r)
-    print d_fit
+    print (d_fit)
 
 def fit(id_sc):
     
@@ -476,14 +476,14 @@ def fit(id_sc):
     b_r =   b - r
     
     iso =   ISO()
-    iso.load_npy('Z.npy')
+    iso.load_npy('Z_python3.npy')
     d_fit   =   iso.fit_age_Z(g, b_r)
-    print d_fit
+    print (d_fit)
         
 def main_save_npy():
     iso =   ISO()
-    iso.load_dat('./iso')
-    iso.save_npy('Z.npy')
+    iso.load_dat('../data/isochrone')
+    iso.save_npy('Z_python3.npy')
 
 if __name__ == '__main__':
     main_save_npy()
