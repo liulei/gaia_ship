@@ -386,14 +386,17 @@ class ISO(object):
 
         return d_this
 
+# This is the default entry for isochrone fitting
     def fit_age_Z(self, g, b_r):
 
         ns  =   len(g)
+# For accuracy, select those with g < 17 for fitting
         ids =   np.where(g < 17)[0]
         g   =   g[ids]
         b_r =   b_r[ids]
         print('total: %d, mag_g < 17: %d' % (ns, len(g)))
 
+# For efficiency, set maximum star number to 1000, you may change it
         nmax    =   1000
         ns  =   len(g)
         if ns > nmax:
@@ -401,11 +404,10 @@ class ISO(object):
             g   =   g[ids]
             b_r =   b_r[ids]
 
-        dg      =   0.1
-        db_r    =   0.02
-#        self.w  =   calc_weight(g, b_r, dg, db_r)
+# Weight are set to 1 for every star in current version
         self.w  =   np.ones(len(g))
 
+# Sequence of metallicty for fitting. Starting with solar metallicity.
         Z_table =   [8, 7, 9, 6, 10, 5, 4, 3, 2, 1, 0]
 
         X   =   np.zeros((len(g), 2), dtype = float)
@@ -413,6 +415,8 @@ class ISO(object):
         X[:, 1] =   b_r[:]
 
         d2_min  =   1E9
+
+# n_posfit is not used any more. 
         n_postfit   =   0
         d_fit_age =   {}
 #        for idx_Z in range(self.n_Z):
@@ -446,9 +450,11 @@ class ISO(object):
         d_this['d2']    =   d2_min
         d_this['Z']     =   self.l_Z[idx_min]
 
+# Label for failed fitting, overlook it.
         if len(g) < 20:
             d_this['d2']    =   len(g)
 
+# Fitting params are stored in this dict
         return d_this
 
 def fit3(id_sc):
