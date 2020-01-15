@@ -27,15 +27,15 @@ There are 3 directories in this repo.
     
 **Note**: 
 
+- **Very important! Most of the programs are developed with Python 2.7.13 (provided by conda 4.5.8). If you use Python 3, please change `print " " ` to `print(" ")` and pay attention to the difference between `/` (float division) and `//` (integer division).**
+
 - If you make use of SHiP in your work, we require that you quote the pipeline link `https://github.com/liulei/gaia_ship` and reference the following paper:
 
-  - `Liu, Lei & Pang, Xiaoying, "A catalog of newly identified star clusters in GAIA DR2", 2019, accepted for publication in ApJS, arXiv:1910.12600`
+  - `Liu, Lei & Pang, Xiaoying, "A catalog of newly identified star clusters in GAIA DR2", 2019, ApJS, 245, 32, arXiv:1910.12600`
 
 - The whole pipeline (including the data and figure) is as large as 1 GB, which is actually not easy to download from GitHub. For conveniece, I have prepared the `src.tar.gz`, just in case if you are only interested with the code. 
 
 - Current SHiP pipeline includes the data preparation, FoF, isochrone fitting and classification parts, so that you may construct the same catalog presented in the above paper. The data visualization part is not provided, since the programs are not well documented and the writings are messy. However they are still available upon request.
-
-- Most of the programs are developed with Python 2.7.13 (provided by conda 4.5.8). If you use Python 3, please change `print " " ` to `print(" ")` and pay attention to the difference between `/` (float division) and `//` (integer division). 
 
 - Due to the file size limitation set by GitHub (< 100 MB), `Z.npy` (~ 129 MB) cannot be uploaded. To use the isochrone fitting program, you have to generate it yourself by running `load_dat()` and `save_npy()` in `isochrone.py`. 
 
