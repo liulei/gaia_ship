@@ -16,8 +16,8 @@ There are 3 directories in this repo.
     
         df = pd.read_csv("cat_all.txt", delim_whitespace = True, header = 0)
     
-    - `fof/`: star members of 2443 star cluster candidates, in `.npy` format, can be loaded with `np.load()`. 
-
+    - `fof/npy`: star members of 2443 star cluster candidates, in `.npy` format, can be loaded with `arr = np.load()`. **Note! These files might be demaged if you download them individually from this repo via web browser.** I strongly recommend you down the whole repo via `git clone` if you want to use the `.npy` format.
+    - `fof/csv`: star members of 2443 star cluster candidates, in `.csv` format, can be loaded with `df = pd.read_csv()`. Safe for individual downling with web browser.
     - `isochrone/0-10.dat`: `.dat` files that contain the isochrone tables downloaded from Padova group web interface. 
          
 - `figure/`:
@@ -33,13 +33,16 @@ There are 3 directories in this repo.
 
   - `Liu, Lei & Pang, Xiaoying, "A catalog of newly identified star clusters in GAIA DR2", 2019, ApJS, 245, 32, arXiv:1910.12600`
 
-- The whole pipeline (including the data and figure) is as large as 1 GB, which is actually not easy to download from GitHub. For conveniece, I have prepared the `src.tar.gz`, just in case if you are only interested with the code. 
+- According to feedbacks from colleagues, **star members in `.npy` format might be demaged and not be loadable with `np.load()` if you download them individually from this repo via web browser**. We strongly recommend you download the whole repo via `git clone` if you want to use the `.npy` format member list. For convenience, I have prepared the member list in csv format. This guarantees the safe downloading via web browser with a small loss of precision.
+
+- The whole pipeline (including the data and figure) is as large as 3 GB, which is actually not easy to download from GitHub. For conveniece, I have prepared the `src.tar.gz`, just in case if you care only with the code. 
 
 - Current SHiP pipeline includes the data preparation, FoF, isochrone fitting and classification parts, so that you may construct the same catalog presented in the above paper. The data visualization part is not provided, since the programs are not well documented and the writings are messy. However they are still available upon request.
 
 - Due to the file size limitation set by GitHub (< 100 MB), `Z.npy` (~ 129 MB) cannot be uploaded. To use the isochrone fitting program, you have to generate it yourself by running `load_dat()` and `save_npy()` in `isochrone.py`. 
 
 - You may use `npy2csv.py` to convert the npy format member list of every individual SC candidate to csv format which is readable by topcat.
+
 
 Feel free to contact me (`liulei@shao.ac.cn`) if you have any problem.
 
