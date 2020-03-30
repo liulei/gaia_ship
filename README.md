@@ -37,7 +37,7 @@ There are 3 directories in this repo.
 
 - According to feedbacks from colleagues, **star members in `.npy` format might be demaged and not be loadable with `np.load()` if you download them individually from this repo via web browser**. We strongly recommend you download the whole repo via `git clone` if you want to use the `.npy` format member list. For convenience, I have prepared the member list in csv format. This guarantees the safe downloading via web browser with a small loss of precision.
 
-- The whole pipeline (including the data and figure) is as large as 3 GB, which is actually not easy to download from GitHub. For conveniece, I have prepared the `src.tar.gz`, just in case if you care only with the code. 
+- The whole pipeline (including the data and figure) is as large as 3 GB, which is actually not easy to download from GitHub. For conveniece, I have prepared the `src.tar.gz`, just in case you are only interested with the code. If you want to run isochrone fitting, an extra file `Z_python.py.tar.gz` in `data/isochrone/` is required.
 
 - Current SHiP pipeline includes the data preparation, FoF, isochrone fitting and classification parts, so that you may construct the same catalog presented in the above paper. The data visualization part is not provided, since the programs are not well documented and the writings are messy. However they are still available upon request.
 
