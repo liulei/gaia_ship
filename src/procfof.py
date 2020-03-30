@@ -30,6 +30,17 @@ n_star_min  =   20
 
 prefix_sel  =   '../select'
 
+# Generate keys that store the individual index for each star. For single 
+# sky area, the seg part can be ignored, which makes the function pretty 
+# simple:
+def load_stars_single():
+
+# arr: store indiviual stellar info (l, b, plx, pmra, pmdec).
+# The defination is dtype_select in procsel.py. Or you just prepare you own
+# format and modify the fof() class method a little bit for reading.
+    keys    =   np.arange(len(arr))
+    return arr, keys
+
 def load_stars(id_task):
 
     l_arr    =   []
@@ -60,6 +71,7 @@ def norm(arr):
 
 class Group(object):
 
+# You may use your own input array
     def __init__(self, arr, keys):
 
         self.nstar  =   len(arr)
@@ -215,7 +227,10 @@ class Group(object):
 
         return ginfos, l_key1
  
-def fof(id_task):
+# Entry for FoF clustering. 
+# A simple example of load_stars_single() is provide in this file to 
+# instruct you how to prepare data.
+def runfof(id_task):
     
     if os.path.exists('ginfos_p%04d.npy' % (id_task)):
         return
@@ -252,7 +267,7 @@ def calc():
         if id_seg < 0:
             break
 #        select_stars(id_seg)
-        fof(id_seg)
+        runfof(id_seg)
 
 def main():
 
@@ -272,7 +287,7 @@ def main():
         calc()
 
 def main_serial():
-    fof(0)
+    runfof(0)
 
 if __name__ == '__main__':
 #    main()

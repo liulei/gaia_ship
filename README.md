@@ -19,6 +19,8 @@ There are 3 directories in this repo.
     - `fof/npy`: star members of 2443 star cluster candidates, in `.npy` format, can be loaded with `arr = np.load()`. **Note! These files might be demaged if you download them individually from this repo via web browser.** I strongly recommend you down the whole repo via `git clone` if you want to use the `.npy` format.
     - `fof/csv`: star members of 2443 star cluster candidates, in `.csv` format, can be loaded with `df = pd.read_csv()`. Safe for individual downling with web browser.
     - `isochrone/0-10.dat`: `.dat` files that contain the isochrone tables downloaded from Padova group web interface. 
+    - `isochrone/Z_python3.npy.tar.gz`: the `Z.npy` data file. Provided in compressed format. Please uncompress it before loading: `tar zxvf Z_python3.npy.tar.gz`.
+    - `fit_iso/`: isochrone fitting results of 2443 cluster candidates. For Python 3:` fit = np.load(name_fit_iso, allow_pickle=True, encoding='latin1').flat[0]`. For Python 2: `fit = np.load(name_fit_iso).flat[0]`.
          
 - `figure/`:
     - `4panel/`: 4-panels of 2443 star cluster candidates. 
@@ -39,10 +41,11 @@ There are 3 directories in this repo.
 
 - Current SHiP pipeline includes the data preparation, FoF, isochrone fitting and classification parts, so that you may construct the same catalog presented in the above paper. The data visualization part is not provided, since the programs are not well documented and the writings are messy. However they are still available upon request.
 
-- Due to the file size limitation set by GitHub (< 100 MB), `Z.npy` (~ 129 MB) cannot be uploaded. To use the isochrone fitting program, you have to generate it yourself by running `load_dat()` and `save_npy()` in `isochrone.py`. 
+- The FoF clustering part and isochrone fitting part are the core of this pipeline. For those want to integrate them into your own pipeline, more detailed instructions are provided for the corresponding file below (`isochrone.py` and `procfof.py`). 
+
+- Due to the file size limitation set by GitHub (< 100 MB), `Z.npy` (~ 129 MB) cannot be uploaded directly. I provide the compressed version 'Z_python3.npy.tar.gz'. You may download it and uncompress it with `tar zxvf Z_python3.npy.tar.gz`. I only provide `Z.npy` for `GAIA` system. To generate for your own photometry system, prepare `.dat` files in Padova webpage, use `load_dat()` and `save_npy()` in `isochrone.py`. . 
 
 - You may use `npy2csv.py` to convert the npy format member list of every individual SC candidate to csv format which is readable by topcat.
-
 
 Feel free to contact me (`liulei@shao.ac.cn`) if you have any problem.
 
@@ -115,6 +118,16 @@ Feel free to contact me (`liulei@shao.ac.cn`) if you have any problem.
 
 ## `procfof.py`
 
+This pipeline is originally designed for the data processing of large number of particles. Therefore every step takes parallalization into account, which makes it complicated. Now I realize that most of cases, users only cares about a single sky area, which greatly simplifies the usage. Below is the intruction for FoF clustering usage for a single sky area.
+
+- The FoF method can only identify cluster from a smooth background. Therefore it might not work well if your sky area is too large. 
+- The entry for FoF clustering is `runfof()`. You may find instructions on how to prepare data in example function `load_stars_single()`. 
+- Some variables for controlling the FoF clustering:
+    - `self.w`: the weight of every quantity. Adjust them according to the feature of your data.
+    - `self.b_fof`: the linking length. Usually 0.2 times the mean partile seperation. 
+    - `n_star_min`: a group is output with at least this number of stellar numbers. Change it according to your usage. 
+- The output of the `fof()` function is `ginfos` and `l_keys1`. See `output` below for instructions. For single sky area FoF clustering, you may care about the star member list of each group in `l_keys1`.
+
 **Input**:
 
 - `stars_in_segXXXX.npy`
@@ -182,9 +195,30 @@ Feel free to contact me (`liulei@shao.ac.cn`) if you have any problem.
 
 ## `isochrone.py`
 
+This file provides all the necessary functions to for isochrone fitting. Below is a summary of its usage. 
+
+- The main function for isochrone fitting is `fit_age_Z()`. An example is provided by fit():
+
+        iso =   ISO()
+        iso.load_npy('Z_python3.npy')
+        d_fit   =   iso.fit_age_Z(g, b_r)
+`g` and `b_r` are numpy arrays for photometry. `d_fit` is a dict that stores the fitting result. You may load it with `np.load(fit_iso_name, allow_pickle=True).flat[0]`. Pay attention to the extra `encoding='latin1'` param if you load our fitting results with Ptython 3.
+ 
+- Originally I expect the users generate their `Z.npy` using `load_dat()` and `save_npy()` for their own photometry data. However it seems more convenienet to provide `Z.npy` directly. Please download it from `data/isochrone/Z_python3.npy.tar.gz` and uncompress it with `tar zxvf Z_python3.npy.tar.gz`. 
+
+- As mentioned in the paper, there is a magnitude cut `g < 17` for bright stars. You may change or discard this criteria. 
+
+- For efficiency, the fitting only deals with a maximum of 1000 stars, which is enough for most of star cluster cases. This is controlled by `nmax`. You may change or discard this criteria. 
+
+- The fitting is only tested on apparent magnitude. You may try with absolute magnitude. If you succeed, please let me know. 
+
+- You may want to plot the fitting result. I provide this function in `showisofit.py`. The input is `g`, `b_r` and the name of your fitting result file. Or just modify it to pass the fittign result dict. The problem is pretty simple. 
+
+Below is old information on generating `Z.npy` for your own photometry system.
+
 **Input**:
 
-- `.dat` files that contain isochrone information downloaded from Padova group web interface (http://stev.oapd.inaf.it/cgi-bin/cmd).
+- `.dat` files that contain isochrone information downloaded from Padova group web interface (http://stev.oapd.inaf.it/cgi-bin/cmd). 
 
 **Output**:
 
@@ -195,7 +229,7 @@ Feel free to contact me (`liulei@shao.ac.cn`) if you have any problem.
 The `ISO` class in this file provides the following functions:
 
 - `load_dat()` and `save_npy()`: generate `Z.npy` from `.dat` files.
-- `load_npy()` and `fit_age_Z()`: load `Z.npy` and fit age and Z with given color-magnitude series. 
+
 
 ## `extract_sc_info.py`
 
