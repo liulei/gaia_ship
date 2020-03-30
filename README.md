@@ -29,11 +29,15 @@ There are 3 directories in this repo.
     
 **Note**: 
 
-- **Very important! Most of the programs are developed with Python 2.7.13 (provided by conda 4.5.8). If you use Python 3, please change `print " " ` to `print(" ")` and pay attention to the difference between `/` (float division) and `//` (integer division). **
-
 - If you make use of SHiP in your work, we require that you quote the pipeline link `https://github.com/liulei/gaia_ship` and reference the following paper:
 
   - `Liu, Lei & Pang, Xiaoying, "A catalog of newly identified star clusters in GAIA DR2", 2019, ApJS, 245, 32, arXiv:1910.12600`
+
+- Most of the programs are developed with Python 2.7.13 (provided by conda 4.5.8). If you use Python 3, please pay a attention to the following suggestions:
+
+    - Change `print " " ` to `print(" ")`.
+    - Pay attention to the difference between `/` (float division) and `//` (integer division).
+    - If failed with `np.load()`, try this: `np.load(xxx.npy, allow_pickle=True)`. See additional notes for loading iso fitting files.
 
 - According to feedbacks from colleagues, **star members in `.npy` format might be demaged and not be loadable with `np.load()` if you download them individually from this repo via web browser**. We strongly recommend you download the whole repo via `git clone` if you want to use the `.npy` format member list. For convenience, I have prepared the member list in csv format. This guarantees the safe downloading via web browser with a small loss of precision.
 
@@ -41,13 +45,15 @@ There are 3 directories in this repo.
 
 - Current SHiP pipeline includes the data preparation, FoF, isochrone fitting and classification parts, so that you may construct the same catalog presented in the above paper. The data visualization part is not provided, since the programs are not well documented and the writings are messy. However they are still available upon request.
 
+- The installation of `mpi4py` is a little bit tricky. Fortunately it is not required if you use the core functions in single process mode, e.g. ischrone fitting, FoF clustering, see below for detailed instructions.
+
 - The FoF clustering part and isochrone fitting part are the core of this pipeline. For those want to integrate them into your own pipeline, more detailed instructions are provided for the corresponding file below (`isochrone.py` and `procfof.py`). 
 
-- Due to the file size limitation set by GitHub (< 100 MB), `Z.npy` (~ 129 MB) cannot be uploaded directly. I provide the compressed version 'Z_python3.npy.tar.gz'. You may download it and uncompress it with `tar zxvf Z_python3.npy.tar.gz`. I only provide `Z.npy` for `GAIA` system. To generate for your own photometry system, prepare `.dat` files in Padova webpage, use `load_dat()` and `save_npy()` in `isochrone.py`. . 
+- Due to the file size limitation set by GitHub (< 100 MB), `Z.npy` (~ 129 MB) cannot be uploaded directly. I provide the compressed version 'Z_python3.npy.tar.gz'. You may download it and uncompress it with `tar zxvf Z_python3.npy.tar.gz`. I only provide `Z.npy` for `GAIA` system. To generate for your own photometry system, prepare `.dat` files in Padova webpage, use `load_dat()` and `save_npy()` in `isochrone.py`. 
 
 - You may use `npy2csv.py` to convert the npy format member list of every individual SC candidate to csv format which is readable by topcat.
 
-Feel free to contact me (`liulei@shao.ac.cn`) if you have any problem.
+Feel free to contact me (e-mail: `liulei@shao.ac.cn`, wechat: thirtyliu) if you have any problem.
 
 ## `procgaia.py`
 
