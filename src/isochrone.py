@@ -242,7 +242,7 @@ class ISO(object):
 
         n   =   len(l_tree3) 
         dn  =   5
-        i   =   dn / 2
+        i   =   dn // 2
 
 # Loop 1:
 #        print 'Loop 1:'
@@ -295,7 +295,7 @@ class ISO(object):
 
         n   =   len(l_tree) 
         dn  =   5
-        i   =   dn / 2
+        i   =   dn // 2
 
 # Loop 1:
 #        print 'Loop 1:'
@@ -372,7 +372,7 @@ class ISO(object):
         age     =   -1.0
 
         d_this  =   {}
-        for idx_Z, d in d_fit_age.iteritems():
+        for idx_Z, d in d_fit_age.items():
             if d['d2'] < d2_min:
                 d2_min  =   d['d2']
                 idx_min =   idx_Z
@@ -438,7 +438,7 @@ class ISO(object):
         age     =   -1.0
 
         d_this  =   {}
-        for idx_Z, d in d_fit_age.iteritems():
+        for idx_Z, d in d_fit_age.items():
             if d['d2'] < d2_min:
                 d2_min  =   d['d2']
                 idx_min =   idx_Z
