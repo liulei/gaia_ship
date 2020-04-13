@@ -408,7 +408,8 @@ class ISO(object):
         self.w  =   np.ones(len(g))
 
 # Sequence of metallicty for fitting. Starting with solar metallicity.
-        Z_table =   [8, 7, 9, 6, 10, 5, 4, 3, 2, 1, 0]
+# Discarded feature
+#        Z_table =   [8, 7, 9, 6, 10, 5, 4, 3, 2, 1, 0]
 
         X   =   np.zeros((len(g), 2), dtype = float)
         X[:, 0] =   g[:]
@@ -419,8 +420,8 @@ class ISO(object):
 # n_posfit is not used any more. 
         n_postfit   =   0
         d_fit_age =   {}
-#        for idx_Z in range(self.n_Z):
-        for idx_Z in Z_table:
+        for idx_Z in range(self.n_Z):
+#        for idx_Z in Z_table:
             d_fit_age[idx_Z]  =   self.fit_age(idx_Z, X)
 
             d2  =   d_fit_age[idx_Z]['d2']
@@ -429,6 +430,7 @@ class ISO(object):
                 n_postfit   =   0
             else:
                 n_postfit   +=  1
+# n_postfit is discarded.
 #            if n_postfit >= 2:
 #                break 
         
