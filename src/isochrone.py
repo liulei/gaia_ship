@@ -113,7 +113,7 @@ class ISO(object):
         np.save(name, (self.l_Z, self.d)) 
 
     def load_npy(self, name):
-        self.l_Z, self.d    =   np.load(name)
+        self.l_Z, self.d    =   np.load(name, allow_pickle=True)
         self.n_Z    =   len(self.l_Z)
 
     def gen_iso_tree(self, iso):
