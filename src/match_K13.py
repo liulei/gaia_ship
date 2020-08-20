@@ -43,9 +43,9 @@ def main():
     b0  =   r_match < r_fof
     b1  =   r_match < r_K
 
-#    ids =   np.where(np.logical_and(b0, b1))[0]
+    ids =   np.where(np.logical_and(b0, b1))[0]
 #    ids =   np.where(np.logical_not(np.logical_and(b0, b1)))[0]
-    ids =   np.arange(len(b0))
+#    ids =   np.arange(len(b0))
 
     cls_sc  =   np.loadtxt('../sc_info.txt')[:, -1].astype(int)
 

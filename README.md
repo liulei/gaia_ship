@@ -162,17 +162,17 @@ This pipeline is originally designed for the data processing of large number of 
 **Output**:
 
 - `ginfos_merge.npy`: basic info of each cluster after merge
-- `keys_seg_merge.npy`: keys (file and star index) of each cluster for `gaia_segXXXX.npy`
+- `keys_seg_cluster.npy`: keys (file and star index) of each cluster for `gaia_segXXXX.npy`
 
 **Description**:
 
-- This program merges cluster from different partitions. At present the merge is just based on the intersection of keys (`keys_sel_pXXXX.npy`) from two clusters. See `is_merge()` function for more details. 
+- This program merges cluster from 4311 partitions. At present the merge is just based on the intersection of keys (`keys_sel_pXXXX.npy`) from two clusters. See `is_merge()` function for more details. `nmin` is set to 50 to select those with at least 50 members after merge.
 
 ## `prockeyseg2sc.py`
 
 **Input**:
 
-- `keys_seg_pXXXX.npy`
+- `keys_seg_cluster.npy`
 - `gaia_segXXXX.npy`
 
 **Output**:
@@ -181,7 +181,7 @@ This pipeline is originally designed for the data processing of large number of 
 
 **Description**:
 
-- This program retrieve stars from `gaia_segXXXX.npy` according to keys of each cluster recorded in `keys_seg_pXXXX.npy`. 
+- This program retrieve stars from `gaia_segXXXX.npy` according to keys of each cluster recorded in `keys_seg_cluster.npy`. 
 - Further analysis of star clusters will be totally based on `fof_scXXXX.npy`.
 
 ## `prociso.py`
