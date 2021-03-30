@@ -10,11 +10,14 @@ There are 3 directories in this repo.
     - `Bica.txt`: Bica et al. (2019)
     - `cal_all.txt`: full version of Tab. 1 in the paper.
     - `cat_new.txt`: full version of Tab. 3 in the paper.
+    - `fit_iso.txt`: isochrone fitting result of 2443 star cluster candidates.
     - `group/`: cluter members of 56 cluster groups. 
     
-    **Note**: `cat_all.txt`, `cat_new.txt` and `group/sc_groupXXXX.txt` can be loaded with `pandas`, e.g.:
+    **Note**: `cat_all.txt`, `cat_new.txt`, `fit_iso.txt` and `group/sc_groupXXXX.txt` can be loaded with `pandas`, e.g.:
     
         df = pd.read_csv("cat_all.txt", delim_whitespace = True, header = 0)
+        
+    The first line is the name of the corresponding column.
     
     - `fof/npy`: star members of 2443 star cluster candidates, in `.npy` format, can be loaded with `arr = np.load()`. **Note! These files might be demaged if you download them individually from this repo via web browser.** I strongly recommend you down the whole repo via `git clone` if you want to use the `.npy` format.
     - `fof/csv`: star members of 2443 star cluster candidates, in `.csv` format, can be loaded with `df = pd.read_csv()`. Safe for individual downling with web browser.
@@ -293,3 +296,18 @@ This program reads sc info and classifies them.
 **Note**:
 
 - In this program and only in this program, we use the $d$, $l$, $b$ to $X$, $Y$, $Z$ conversion described by Eq. 3 of Conrad et al. (2017). This is different from the commonly used conversion adopted in our paper (Fig. 8). 
+
+## `extract_fit_iso.py`
+
+**Description**:
+
+- Extract the isochrone fitting result of the 2443 scs.
+
+**Output**:
+
+- `fit_iso.txt`
+    - col 0: id (from 0)
+    - col 1: distance module ($\Delta G$)
+    - col 2: color excess ($\Delta B-R$)
+    - col 3: age (in Gyr)
+    - col 4: Z (in log10(Z/Zsol), here Zsol = 0.0152)
