@@ -36,7 +36,9 @@ There are 3 directories in this repo.
 
   - `Liu, Lei & Pang, Xiaoying, "A catalog of newly identified star clusters in GAIA DR2", 2019, ApJS, 245, 32, arXiv:1910.12600`
 
-- Most of the programs are developed with Python 2.7.13 (provided by conda 4.5.8). If you use Python 3, please pay a attention to the following suggestions:
+- When citing star clusters in this catalog, we strongly recommend taking the format LP + FoF ID, e.g. LP0005 (the first newly identified star clusters in Table. 3 of the paper), such that different studies concerning this catalog can be compared directly. 
+
+- Most of the programs are developed with Python 2.7.13 (provided by conda 4.5.8). If you use Python 3, please pay attention to the following suggestions:
 
     - Change `print " " ` to `print(" ")`.
     - Pay attention to the difference between `/` (float division) and `//` (integer division).
