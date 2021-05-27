@@ -17,7 +17,7 @@ There are 3 directories in this repo.
     
         df = pd.read_csv("cat_all.txt", delim_whitespace = True, header = 0)
         
-    The first line is the name of the corresponding column.
+    The first line is the name of the corresponding column. The unit of each quantity is explained in the table header of Tab. 1 and 3 in the paper. The $x$, $y$, $z$ coordinates in `group/sc_groupXXXX.txt` take the unit of pc. 
     
     - `fof/npy`: star members of 2443 star cluster candidates, in `.npy` format, can be loaded with `arr = np.load()`. **Note! These files might be demaged if you download them individually from this repo via web browser.** I strongly recommend you down the whole repo via `git clone` if you want to use the `.npy` format.
     - `fof/csv`: star members of 2443 star cluster candidates, in `.csv` format, can be loaded with `df = pd.read_csv()`. Safe for individual downling with web browser.
