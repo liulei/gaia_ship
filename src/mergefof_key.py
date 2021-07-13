@@ -8,8 +8,10 @@ import scutil
 from astropy import units as u
 from astropy.coordinates import SkyCoord, Galactic, ICRS
 
+partitions  =   np.load('gaia_partition.npy')
+
 nseg        =   200
-npartition  =   4311
+npartition  =   len(partitions)
 nmin        =   50
 fmin        =   0.5
 

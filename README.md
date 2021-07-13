@@ -13,7 +13,7 @@ There are 3 directories in this repo.
     - `fit_iso.txt`: isochrone fitting result of 2443 star cluster candidates.
     - `group/`: cluter members of 56 cluster groups. 
     
-    **Note**: `cat_all.txt`, `cat_new.txt`, `fit_iso.txt` and `group/sc_groupXXXX.txt` can be loaded with `pandas`, e.g.:
+    Note that `cat_all.txt`, `cat_new.txt`, `fit_iso.txt` and `group/sc_groupXXXX.txt` can be loaded with `pandas`, e.g.:
     
         df = pd.read_csv("cat_all.txt", delim_whitespace = True, header = 0)
         
@@ -32,31 +32,36 @@ There are 3 directories in this repo.
     
 **Note**: 
 
-- If you make use of SHiP in your work, we require that you quote the pipeline link `https://github.com/liulei/gaia_ship` and reference the following paper:
+1. If you make use of SHiP in your work, we require that you quote the pipeline link `https://github.com/liulei/gaia_ship` and reference the following paper:
 
   - `Liu, Lei & Pang, Xiaoying, "A catalog of newly identified star clusters in GAIA DR2", 2019, ApJS, 245, 32, arXiv:1910.12600`
 
-- When citing star clusters in this catalog, we strongly recommend taking the format LP + FoF ID, e.g. LP0005 (the first newly identified star clusters in Table. 3 of the paper), such that different studies concerning this catalog can be compared directly. 
+2. When citing star clusters in this catalog, we strongly recommend taking the format LP + FoF ID, e.g. LP0005 (the first newly identified star clusters in Table. 3 of the paper), such that different studies concerning this catalog can be compared directly. 
 
-- Most of the programs are developed with Python 2.7.13 (provided by conda 4.5.8). If you use Python 3, please pay attention to the following suggestions:
+3. Most of the programs are developed with Python 2.7.13 (provided by conda 4.5.8). If you use Python 3, please pay attention to the following suggestions:
 
     - Change `print " " ` to `print(" ")`.
     - Pay attention to the difference between `/` (float division) and `//` (integer division).
     - If failed with `np.load()`, try this: `np.load(xxx.npy, allow_pickle=True)`. See additional notes for loading iso fitting files.
 
-- According to feedbacks from colleagues, **star members in `.npy` format might be demaged and not be loadable with `np.load()` if you download them individually from this repo via web browser**. We strongly recommend you download the whole repo via `git clone` if you want to use the `.npy` format member list. For convenience, I have prepared the member list in csv format. This guarantees the safe downloading via web browser with a small loss of precision.
+4. According to feedbacks from colleagues, **star members in `.npy` format might be demaged and not be loadable with `np.load()` if you download them individually from this repo via web browser**. We strongly recommend you download the whole repo via `git clone` if you want to use the `.npy` format member list. For convenience, I have prepared the member list in csv format. This guarantees the safe downloading via web browser with a small loss of precision.
 
-- The whole pipeline (including the data and figure) is as large as 3 GB, which is actually not easy to download from GitHub. For conveniece, I have prepared the `src.tar.gz`, just in case you are only interested with the code. If you want to run isochrone fitting, an extra file `Z_python.py.tar.gz` in `data/isochrone/` is required.
+5. The whole pipeline (including the data and figure) is as large as 3 GB, which is actually not easy to download from GitHub. For conveniece, I have prepared the `src.tar.gz`, just in case you are only interested with the code. If you want to run isochrone fitting, an extra file `Z_python.py.tar.gz` in `data/isochrone/` is required.
 
-- Current SHiP pipeline includes the data preparation, FoF, isochrone fitting and classification parts, so that you may construct the same catalog presented in the above paper. The data visualization part is not provided, since the programs are not well documented and the writings are messy. However they are still available upon request.
+6. Current SHiP pipeline includes the data preparation, FoF, isochrone fitting and classification parts, so that you may construct the same catalog presented in the above paper. The data visualization part is not provided, since the programs are not well documented and the writings are messy. However they are still available upon request.
 
-- The installation of `mpi4py` is a little bit tricky. Fortunately it is not required if you use the core functions in single process mode, e.g. ischrone fitting, FoF clustering, see below for detailed instructions.
+7. The installation of `mpi4py` is a little bit tricky. Fortunately it is not required if you use the core functions in single process mode, e.g. ischrone fitting, FoF clustering, see below for detailed instructions.
 
-- The FoF clustering part and isochrone fitting part are the core of this pipeline. For those want to integrate them into your own pipeline, more detailed instructions are provided for the corresponding file below (`isochrone.py` and `procfof.py`). 
+8. The FoF clustering part and isochrone fitting part are the core of this pipeline. For those want to integrate them into your own pipeline, more detailed instructions are provided for the corresponding file below (`isochrone.py` and `procfof.py`). 
 
-- Due to the file size limitation set by GitHub (< 100 MB), `Z.npy` (~ 129 MB) cannot be uploaded directly. I provide the compressed version 'Z_python3.npy.tar.gz'. You may download it and uncompress it with `tar zxvf Z_python3.npy.tar.gz`. I only provide `Z.npy` for `GAIA` system. To generate for your own photometry system, prepare `.dat` files in Padova webpage, use `load_dat()` and `save_npy()` in `isochrone.py`. 
+9. Due to the file size limitation set by GitHub (< 100 MB), `Z.npy` (~ 129 MB) cannot be uploaded directly. I provide the compressed version 'Z_python3.npy.tar.gz'. You may download it and uncompress it with `tar zxvf Z_python3.npy.tar.gz`. I only provide `Z.npy` for `GAIA` system. To generate for your own photometry system, prepare `.dat` files in Padova webpage, use `load_dat()` and `save_npy()` in `isochrone.py`. 
 
-- You may use `npy2csv.py` to convert the npy format member list of every individual SC candidate to csv format which is readable by topcat.
+10. You may use `npy2csv.py` to convert the npy format member list of every individual SC candidate to csv format which is readable by topcat.
+
+11. The number of domains that corresponds to the released catalog is 4170. 
+
+12. A parameter `bounds` is added to `isochrone.py` as a global variable. Set `doubles = None` to fit both $\Delta_g$ and $\Delta_{b-r}$. Otherwise fit $\Delta_{b-r}$ only. In the latter case the input data should be in **ABSOLUTE** magnitude. 
+
 
 Feel free to contact me (e-mail: `liulei@shao.ac.cn`, wechat: thirtyliu) if you have any problem.
 
@@ -160,7 +165,7 @@ This pipeline is originally designed for the data processing of large number of 
 ## `mergefof_key.py`
 
 **Input**:
-
+- `gaia_partition.npy`
 - `ginfos_pXXXX.npy`
 - `keys_sel_pXXXX.npy`
 
@@ -171,7 +176,7 @@ This pipeline is originally designed for the data processing of large number of 
 
 **Description**:
 
-- This program merges cluster from 4311 partitions. At present the merge is just based on the intersection of keys (`keys_sel_pXXXX.npy`) from two clusters. See `is_merge()` function for more details. `nmin` is set to 50 to select those with at least 50 members after merge.
+- This program merges cluster from partitions. At present the merge is just based on the intersection of keys (`keys_sel_pXXXX.npy`) from two clusters. See `is_merge()` function for more details. `nmin` is set to 50 to select those with at least 50 members after merge.
 
 ## `prockeyseg2sc.py`
 

@@ -9,6 +9,13 @@ dtype_iso   =   np.dtype([  ('Mass',    'f4'), \
                             ('g',       'f4'), \
                             ('b',       'f4'), \
                             ('r',       'f4')])
+EPS     =   1E-3
+
+# Bounds for g, b_r fit, default
+bounds  =   None    
+
+# Bounds for b_r only fit
+#bounds  =   ((-EPS, EPS), (-3.0, 3.0))
 
 def remove_nan_b_r(arr):
     
@@ -231,7 +238,10 @@ class ISO(object):
 
             return np.sum(d * d) / len(d)
 
-        res =   minimize(f, x0, method = 'Nelder-Mead')
+        if bounds is not None:
+            x0[0]   =   0.0
+
+        res =   minimize(f, x0, method = 'Nelder-Mead', bounds = bounds)
         x  =   res.x
 
         return f(x), x
